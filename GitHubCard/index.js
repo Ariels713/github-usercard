@@ -5,13 +5,14 @@
 axios.get('https://api.github.com/users/Ariels713')
   .then(response => {
     console.log(response.data)
-    return response.data
+    console.log(gitCard(response.data)) 
   })
   .catch(error => {
     console.log(`${error} <~~ fix me please`)
   })
-  
-  
+
+
+
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
    data in order to use it to build your component function 
@@ -63,44 +64,46 @@ const followersArray = [];
   bigknell
 */
 
-const gitCard = (object) => {
+function gitCard(object){
 
   //Created all DOM Elements
   let div = document.createElement('div')
   div.classList.add('card')
 
   let img = document.createElement('img')
-  //img.src = object['avatar_url']
+  img.src = object['avatar_url']
 
   let cardDiv = document.createElement('div')
   cardDiv.classList.add('card-info')
 
   let h3 = document.createElement('h3')
   h3.classList.add('name')
-  //h3.textContent = object.name || 'See username';
+  h3.textContent = object.name || 'See username';
 
   let userName = document.createElement('p')
   userName.classList.add('username');
-  //userName.textContent = object.login
+  userName.textContent = object.login
 
   let loca = document.createElement('p')
-  //loca.textContent = `Location: = ${object.location}`
+  loca.textContent = `Location: ${object.location}`
 
   let profile = document.createElement('p')
-  //profile.textContent = `Profile: ${user.r}`
+  profile.textContent = `Profile:`
 
   let anchor = document.createElement('a')
-  anchor.href = `https://www.google.com`
-
+  anchor.href = `${object.html_url}`
+  anchor.textContent = object.html_url
 
   let followers = document.createElement('p')
-  followers.textContent = 'Followers:'
+  followers.textContent = `Followers: ${object.followers}`
 
   let following = document.createElement('p')
-  following.textContent = 'Following:'
+  following.textContent = `Following: ${object.following}`
+
+
 
   let bio = document.createElement('p')
-  bio.textContent = 'Bio:'
+  bio.textContent = `Bio: ${object.bio}`
 
   //Appended dom elemends (nested) to div variable
   div.appendChild(img)
@@ -115,6 +118,9 @@ const gitCard = (object) => {
   cardDiv.appendChild(bio)
   // Testing Function Code console.log(div)
 
+  // Append card cards '.class'
+  const gitCards = document.querySelector('.cards')
+  gitCards.appendChild(div)
+
   return div
 }
-console.log(gitCard())
